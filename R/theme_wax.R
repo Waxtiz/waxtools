@@ -58,7 +58,7 @@ theme_wax <- function(theme = "defaut", key = list(
       axis.title.x = element_text(margin = margin(0.5, 0, 0, 0, unit = "cm")),
       axis.title.y = element_text(margin = margin(0, 0.5, 0, 0, unit = "cm"), angle =90),
       # legend.position = "bottom",
-      legend.direction = 'horizontal',
+      # legend.direction = 'horizontal',
       legend.box = "horizontal",
       legend.title.align = 0.5,
       legend.box.just = "center",
