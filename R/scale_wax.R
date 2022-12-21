@@ -104,13 +104,9 @@ scale_wax <- function(..., alpha = 1, begin = 0, end = 1, direction = 1,
                    scale_name = "wax_pal",
                    wax_pal2(alpha, begin, end, direction, option), ...)
   } else if (aesthetics == "colour") {
-    scale_color_gradientn(colours = wax_pal(256, alpha, begin, end, direction, option), ...,
-                          guide = guide_colorbar(barwidth = unit(5, 'cm'),
-                                                 title.vjust = 0.9))
+    scale_color_gradientn(colours = wax_pal(256, alpha, begin, end, direction, option), ...)
   } else if (aesthetics == "fill") {
-    scale_fill_gradientn(colours = wax_pal(256, alpha, begin, end, direction, option), ...,
-                         guide = guide_colorbar(barwidth = unit(5, 'cm'),
-                                                title.vjust = 0.9))
+    scale_fill_gradientn(colours = wax_pal(256, alpha, begin, end, direction, option), ...)
   } else {
     stop("Please, check discrete and asthetics parameters.")
   }
