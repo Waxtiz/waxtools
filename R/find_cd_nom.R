@@ -21,39 +21,61 @@ use_taxref_api <- function(url) {
 #'
 #' @param sp is a character string corresponding to the name of a taxon (species or other).
 #' @param lang defines whether 'sp' is a vernacular (fr) or scientific (latin) name
+#' @param group_fr defines if a filter must be made on the taxon during the query (amphibians, mammals, birds...)
 #'
 #' @importFrom utils URLencode
-parse_url_for_taxref_api <- function(sp, lang) {
+parse_url_for_taxref_api <- function(sp, lang, group_fr) {
   if (lang == "sci") {
     paste0('https://taxref.mnhn.fr/api/taxa/fuzzyMatch?term=',
            URLencode(sp))
   } else if (lang == "fr") {
-    paste0("https://taxref.mnhn.fr/api/taxa/search?frenchVernacularNames=",
-           URLencode(sp),
-           "&page=1&size=5000")
+    if (!is.null(group_fr)) {
+      paste0("https://taxref.mnhn.fr/api/taxa/search?frenchVernacularNames=",
+             URLencode(sp),
+             "&territories=fr&domain=continental&vernacularGroups=Amphibiens&page=1&size=100")
+    } else {
+      paste0("https://taxref.mnhn.fr/api/taxa/search?frenchVernacularNames=",
+             URLencode(sp),
+             "&territories=fr&domain=continental&page=1&size=100")
+    }
   }
 }
 
 #' send the query to the TAXREF API and formulate the response
 #'
 #' @param sp is a character string corresponding to the name of a taxon (species or other).
-#' @param lang defines whether 'sp' is a vernacular (fr) or scientific (latin) name
-query_to_taxref_api <- function(sp, lang) {
-  url <- parse_url_for_taxref_api(sp, lang)
+#' @param lang defines whether 'sp' is a vernacular (fr) or scientific (latin) name.
+#' @param group_fr defines if a filter must be made on the taxon during the query (amphibians, mammals, birds...)
+query_to_taxref_api <- function(sp, lang, group_fr) {
+  url <- parse_url_for_taxref_api(sp, lang, group_fr)
   output <- use_taxref_api(url)
-  output$`_embedded`$taxa$id
+  res <- output$`_embedded`$taxa
+  res <- res[,-length(res)]
+
+  # Add filter for return unique CD_REF (if a single choice)
+  if (nrow(res) > 1) {
+    if (length(unique(res$referenceId)) == 1) {
+      res[res$id == unique(res$referenceId),]
+    } else {
+      res
+    }
+  } else {
+    res
+  }
 }
 
 #' @importFrom plyr ldply
 #' @rdname query_to_taxref_api
-query_loop_to_taxref_api <- function(sp, lang) {
+query_loop_to_taxref_api <- function(sp, lang, group_fr) {
   list <- list()
   for (i in seq_along(sp)) {
-    list[[length(list)+1]] <- query_to_taxref_api(sp[i], lang)
+    res <- query_to_taxref_api(sp[i], lang, group_fr)
+    col_names <- colnames(res)
+    list[[length(list)+1]] <- res
     names(list)[i] <- sp[i]
   }
   output <- ldply(list, data.frame)
-  colnames(output) <- c("sp", "cd_nom")
+  colnames(output) <- c("sp", col_names)
   return(output)
 }
 
@@ -61,13 +83,23 @@ query_loop_to_taxref_api <- function(sp, lang) {
 #'
 #' @param sp is a character string corresponding to the name of a taxon (species or other).
 #' @param lang defines whether 'sp' is a vernacular (fr) or scientific (latin) name
+#' @param group_fr defines if a filter must be made on the taxon during the query (amphibians, mammals, birds...)
+#'
+#' @examples
+#' # run query for find a single name of specie
+#' find_cd_nom("sonneur a ventre jaune", "fr")
+#'
+#' # or use a liste
+#' sp_list <- c("Erithacus rubecula", "Gypaetus barbatus", "Pyrrhocorax pyrrhocorax",
+#'              "Phasianus colchicus", "Circaetus gallicus", "Neophron percnopterus")
+#' find_cd_nom(sp_list, "sci")
 #'
 #' @export
-find_cd_nom <- function(sp, lang = "sci") {
+find_cd_nom <- function(sp, lang = "sci", group_fr = NULL) {
   if (length(sp) == 1) {
-    query_to_taxref_api(sp, lang)
+    query_to_taxref_api(sp, lang, group_fr) # @TODO: faire une fonction qui liste les groupes FR
   } else if (length(sp) > 1) {
-    query_loop_to_taxref_api(sp, lang)
+    query_loop_to_taxref_api(sp, lang, group_fr)
   } else {
     stop("sp is probably not good")
   }

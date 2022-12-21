@@ -4,13 +4,25 @@
 \alias{find_cd_nom}
 \title{Find the CD_NAME of a species from single or liste of taxon name (use the taxref API)}
 \usage{
-find_cd_nom(sp, lang = "sci")
+find_cd_nom(sp, lang = "sci", group_fr = NULL)
 }
 \arguments{
 \item{sp}{is a character string corresponding to the name of a taxon (species or other).}
 
 \item{lang}{defines whether 'sp' is a vernacular (fr) or scientific (latin) name}
+
+\item{group_fr}{defines if a filter must be made on the taxon during the query (amphibians, mammals, birds...)}
 }
 \description{
 Find the CD_NAME of a species from single or liste of taxon name (use the taxref API)
+}
+\examples{
+# run query for find a single name of specie
+find_cd_nom("sonneur a ventre jaune", "fr")
+
+# or use a liste
+sp_list <- c("Erithacus rubecula", "Gypaetus barbatus", "Pyrrhocorax pyrrhocorax",
+             "Phasianus colchicus", "Circaetus gallicus", "Neophron percnopterus")
+find_cd_nom(sp_list, "sci")
+
 }

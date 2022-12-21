@@ -4,12 +4,14 @@
 \alias{parse_url_for_taxref_api}
 \title{Parse the url to make a query to the taxref api}
 \usage{
-parse_url_for_taxref_api(sp, lang)
+parse_url_for_taxref_api(sp, lang, group_fr)
 }
 \arguments{
 \item{sp}{is a character string corresponding to the name of a taxon (species or other).}
 
 \item{lang}{defines whether 'sp' is a vernacular (fr) or scientific (latin) name}
+
+\item{group_fr}{defines if a filter must be made on the taxon during the query (amphibians, mammals, birds...)}
 }
 \description{
 Parse the url to make a query to the taxref api

@@ -1,25 +1,29 @@
-Package: waxtools
 Type: Package
+Package: waxtools
 Title: Daily tools for R
 Version: 1.0
 Date: 2022-12-20
-Depends: R (>= 4.2.0)
 Author: Titouan Leclerc [aut, cre]
 Maintainer: Titouan Leclerc <t_leclerc@hotmail.fr>
-Description: Personal functions to improve my daily life as an R programmer.
-Encoding: UTF-8
+Description: Personal functions to improve my daily life as an R
+    programmer.
 License: GPL-3
+Depends: 
+    R (>= 4.2.0)
 Imports:
     cleangeo,
     crayon,
-    glue,
-    magrittr,
-    sf,
-    methods,
-    utils,
-    plyr,
     ggplot2,
+    glue,
+    grDevices,
+    grid,
     httr,
-    jsonlite
-RoxygenNote: 7.2.1
+    jsonlite,
+    magrittr,
+    methods,
+    plyr,
+    sf,
+    utils
+Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.2.1

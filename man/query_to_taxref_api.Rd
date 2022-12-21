@@ -5,14 +5,16 @@
 \alias{query_loop_to_taxref_api}
 \title{send the query to the TAXREF API and formulate the response}
 \usage{
-query_to_taxref_api(sp, lang)
+query_to_taxref_api(sp, lang, group_fr)
 
-query_loop_to_taxref_api(sp, lang)
+query_loop_to_taxref_api(sp, lang, group_fr)
 }
 \arguments{
 \item{sp}{is a character string corresponding to the name of a taxon (species or other).}
 
-\item{lang}{defines whether 'sp' is a vernacular (fr) or scientific (latin) name}
+\item{lang}{defines whether 'sp' is a vernacular (fr) or scientific (latin) name.}
+
+\item{group_fr}{defines if a filter must be made on the taxon during the query (amphibians, mammals, birds...)}
 }
 \description{
 send the query to the TAXREF API and formulate the response
