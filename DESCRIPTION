@@ -18,6 +18,8 @@ Imports:
     methods,
     utils,
     plyr,
-    ggplot2
+    ggplot2,
+    httr,
+    jsonlite
 RoxygenNote: 7.2.1
 LazyData: true
