@@ -107,7 +107,7 @@ scale_wax <- function(..., alpha = 1, begin = 0, end = 1, direction = 1,
     scale_color_gradientn(colours = wax_pal(256, alpha, begin, end, direction, option), ...,
                           guide = guide_colorbar(barwidth = unit(5, 'cm'),
                                                  title.vjust = 0.9))
-  } else if (asthetics == "fill") {
+  } else if (aesthetics == "fill") {
     scale_fill_gradientn(colours = wax_pal(256, alpha, begin, end, direction, option), ...,
                          guide = guide_colorbar(barwidth = unit(5, 'cm'),
                                                 title.vjust = 0.9))
