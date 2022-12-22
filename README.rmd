@@ -8,8 +8,9 @@ WaxTools
 ======
 
 ```{r echo=FALSE}
-# knitr::opts_chunk$set(
-# )
+knitr::opts_chunk$set(
+  fig.path = "README_files/"
+)
 
 sysfonts::font_add_google(name = "Fira Sans", family = "fira-sans")
 sysfonts::font_add_google(name = "Roboto Slab", family = "roboto-slab")

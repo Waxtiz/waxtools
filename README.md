@@ -42,7 +42,7 @@ ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
   scale_color_wax_d()
 ```
 
-![](C:/Users/demo1/Desktop/FDC25/projets/personal_tests/waxtools/README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](README_files/unnamed-chunk-4-1.png)<!-- -->
 
 wax_theme uses by default the R fonts. However, it is possible to enter
 the “wax” value in the theme parameter of the wax_theme function to use
