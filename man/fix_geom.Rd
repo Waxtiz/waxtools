@@ -2,13 +2,20 @@
 % Please edit documentation in R/geom_validity.R
 \name{fix_geom}
 \alias{fix_geom}
-\title{Fix geom with cleangeo buffer methode for sf object}
+\title{Fix invalid geometries in a simple features object using the buffer method}
 \usage{
 fix_geom(poly)
 }
 \arguments{
-\item{poly}{is a sf object (polygon or multipolygos).}
+\item{poly}{an sf object containing polygons or multipolygons.}
+}
+\value{
+an sf object with invalid geometries fixed using the buffer method.
 }
 \description{
-Fix geom with cleangeo buffer methode for sf object
+This function fixes invalid geometries in a given simple features (sf) object using the buffer method from the
+`cleangeo` package. The input object must be a polygon or multipolygon. The function first reformats the input object
+into a different spatial object format using the `as_Spatial()` function from `sf`, and then uses the `clgeo_Clean()`
+function from `cleangeo` to apply the buffer method to fix the invalid geometries. Finally, the function reformats
+the object back into an sf object.
 }

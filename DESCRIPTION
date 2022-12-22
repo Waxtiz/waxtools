@@ -1,7 +1,7 @@
 Type: Package
 Package: waxtools
 Title: Daily tools for R
-Version: 1.0
+Version: 1.1
 Date: 2022-12-20
 Author: Titouan Leclerc [aut, cre]
 Maintainer: Titouan Leclerc <t_leclerc@hotmail.fr>
@@ -23,7 +23,10 @@ Imports:
     methods,
     plyr,
     sf,
-    utils
+    utils,
+    stringr,
+    stringi
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = FALSE)
 RoxygenNote: 7.2.1

@@ -3,19 +3,22 @@
 \name{query_to_taxref_api}
 \alias{query_to_taxref_api}
 \alias{query_loop_to_taxref_api}
-\title{send the query to the TAXREF API and formulate the response}
+\title{Query the TAXREF API and format the response}
 \usage{
 query_to_taxref_api(sp, lang, group_fr)
 
 query_loop_to_taxref_api(sp, lang, group_fr)
 }
 \arguments{
-\item{sp}{is a character string corresponding to the name of a taxon (species or other).}
+\item{sp}{A character string representing the name of the taxon to search for. This can be either a vernacular or scientific name, depending on the value of lang.}
 
-\item{lang}{defines whether 'sp' is a vernacular (fr) or scientific (latin) name.}
+\item{lang}{A character string indicating whether sp is a vernacular ("fr") or scientific ("sci") name.}
 
-\item{group_fr}{defines if a filter must be made on the taxon during the query (amphibians, mammals, birds...)}
+\item{group_fr}{(optional) A character string defining the taxonomic group to filter the search results by. This parameter is only used if lang is set to "fr".}
+}
+\value{
+A data frame containing information about the taxon(s) matching the search criteria.
 }
 \description{
-send the query to the TAXREF API and formulate the response
+This function sends a query to the TAXREF API using the sp and lang parameters to search for a specific taxon. If lang is set to "fr", the function also allows the user to filter the search results by group_fr. The function then formats the response from the API and returns a data frame with the relevant information.
 }

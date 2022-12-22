@@ -2,7 +2,7 @@
 % Please edit documentation in R/com.R
 \name{com}
 \alias{com}
-\title{Defines the style of a level 4 title - default version}
+\title{Defines the style of a levels title in comment}
 \usage{
 com(text = NULL, heading = "h3", ide = "pycharm", char = "#")
 }
@@ -16,5 +16,5 @@ com(text = NULL, heading = "h3", ide = "pycharm", char = "#")
 \item{char}{is fill character. "#" by default.}
 }
 \description{
-Defines the style of a level 4 title - default version
+Defines the style of a levels title in comment
 }

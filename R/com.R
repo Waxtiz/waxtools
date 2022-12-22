@@ -178,7 +178,7 @@ H5 <- function(text, even = T, nchartext, max_length, char) {
 
 
 
-#' Defines the style of a level 4 title - default version
+#' Defines the style of a levels title in comment
 #'
 #' @param text is a title
 #' @param heading is the desired heading level. Levels are inspired by HTML titles.

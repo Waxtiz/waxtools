@@ -2,8 +2,7 @@
 % Please edit documentation in R/theme_wax.R
 \name{theme_wax}
 \alias{theme_wax}
-\title{Wax theme for ggplot2
-Personal theme for ggplot2}
+\title{Customize the theme of a ggplot2 plot using the wax_palette function}
 \usage{
 theme_wax(
   theme = "defaut",
@@ -14,11 +13,16 @@ theme_wax(
 )
 }
 \arguments{
-\item{theme}{sets the overall style of the chart}
+\item{theme}{the overall style of the chart. Can be either "defaut" or "wax".}
 
-\item{key}{is a list of predefined styles}
+\item{key}{a list of predefined styles.}
+}
+\value{
+a ggplot2 theme object.
 }
 \description{
-Wax theme for ggplot2
-Personal theme for ggplot2
+This function allows the user to customize the overall style of a ggplot2 plot by using the `wax_palette` function.
+The function takes a number of arguments to control the appearance of the plot, including the base font size,
+the font families for the plot title and text, the primary and secondary colors, and the color of the grid lines.
+The function also has a predefined set of styles that can be selected using the `key` argument.
 }

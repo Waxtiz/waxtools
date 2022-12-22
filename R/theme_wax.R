@@ -1,8 +1,15 @@
-#' Wax theme for ggplot2
-#' Personal theme for ggplot2
+#' Customize the theme of a ggplot2 plot using the wax_palette function
 #'
-#' @param theme sets the overall style of the chart
-#' @param key is a list of predefined styles
+#' @description
+#' This function allows the user to customize the overall style of a ggplot2 plot by using the `wax_palette` function.
+#' The function takes a number of arguments to control the appearance of the plot, including the base font size,
+#' the font families for the plot title and text, the primary and secondary colors, and the color of the grid lines.
+#' The function also has a predefined set of styles that can be selected using the `key` argument.
+#'
+#' @param theme the overall style of the chart. Can be either "defaut" or "wax".
+#' @param key a list of predefined styles.
+#'
+#' @return a ggplot2 theme object.
 #'
 #' @import ggplot2
 #'

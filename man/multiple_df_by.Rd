@@ -2,15 +2,32 @@
 % Please edit documentation in R/multiple_df_by.R
 \name{multiple_df_by}
 \alias{multiple_df_by}
-\title{Multiplies a dataframe by values}
+\title{Duplicate a data frame a number of times equal to the length of a given list}
 \usage{
 multiple_df_by(df, by)
 }
 \arguments{
-\item{df}{is a dataframe.}
+\item{df}{a data frame to be duplicated.}
 
-\item{by}{is liste of value (liste or column).}
+\item{by}{a list of values to be added as a new column in the duplicated data frames.}
+}
+\value{
+a new data frame with the original data frame duplicated a number of times equal to the length of the list,
+and a new column added containing the values from the list.
 }
 \description{
-Multiplies a dataframe by values
+This function takes a data frame and a list of values and returns a new data frame by duplicating the original
+data frame a number of times equal to the length of the list. The function also adds a new column to the end of the
+data frame containing the values from the list. This can be useful for multiplying a calendar by a list of people,
+for example.
+}
+\examples{
+\dontrun{
+df <- data.frame(x = c(1, 2, 3), y = c(4, 5, 6))
+multiple_df_by(df, c("Alice", "Bob", "Eve"))
+  # returns 3 copies of the original data frame,
+  # each with a new column at the end containing the values "Alice",
+  # "Bob", and "Eve", respectively
+}
+
 }

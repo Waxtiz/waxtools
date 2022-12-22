@@ -9,6 +9,10 @@ use_taxref_api(url)
 \arguments{
 \item{url}{is there query formulate in url format}
 }
+\value{
+A JSON containing the response from the TAXREF API.
+}
 \description{
-Send a query to the TAXREF API
+This function sends a query in URL format to the TAXREF API and returns the response in JSON format.
+It can be used to retrieve taxonomic information from the database.
 }

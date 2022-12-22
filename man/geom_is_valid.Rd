@@ -2,13 +2,18 @@
 % Please edit documentation in R/geom_validity.R
 \name{geom_is_valid}
 \alias{geom_is_valid}
-\title{Checks the validity of the geometry}
+\title{Check the validity of the geometry of a simple features object}
 \usage{
 geom_is_valid(layer)
 }
 \arguments{
-\item{layer}{is a sf object.}
+\item{layer}{an sf object.}
+}
+\value{
+a logical value indicating whether the geometry of the input object is valid (`TRUE`) or not (`FALSE`).
 }
 \description{
-Checks the validity of the geometry
+This function checks the validity of the geometry of a given simple features (sf) object.
+It does this by using the `st_is_valid()` function from the `sf` package, which checks whether the geometries of the
+input object are topologically valid.
 }

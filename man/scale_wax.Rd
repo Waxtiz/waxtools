@@ -8,7 +8,7 @@
 \alias{scale_fill_wax_c}
 \alias{scale_color_wax_c}
 \alias{scale_color_wax_d}
-\title{Scale color from wax_palette}
+\title{Customize color scale in ggplot2 using the wax_palette function}
 \usage{
 scale_wax(
   ...,
@@ -88,23 +88,34 @@ scale_color_wax_d(
 )
 }
 \arguments{
-\item{...}{is the information passed to the underlying functions. Auto-completed, please ignore.}
+\item{...}{additional arguments to be passed to the underlying functions.}
 
-\item{alpha}{is the alpha transparency, a number in [0,1], see argument alpha in hsv.}
+\item{alpha}{the alpha transparency, a number in [0,1], see argument alpha in hsv.}
 
-\item{begin}{is the (corrected) hue in [0,1] at which the color map begins.}
+\item{begin}{the (corrected) hue in [0,1] at which the color map begins.}
 
-\item{end}{is the (corrected) hue in [0,1] at which the color map ends.}
+\item{end}{the (corrected) hue in [0,1] at which the color map ends.}
 
 \item{direction}{sets the order of colors in the scale. If 1, the default, colors are ordered from darkest to lightest. If -1, the order of colors is reversed.}
 
-\item{discrete}{Operator defining the use of the palette (TRUE for discrete, FALSE for continuous).}
+\item{discrete}{operator defining the use of the palette (TRUE for discrete, FALSE for continuous).}
 
-\item{option}{is choice of palette in wax_colours data}
+\item{option}{choice of palette in wax_colours data}
 
-\item{aesthetics}{Character string or vector of character strings listing the
-name(s) of the aesthetic(s) that this scale works with.}
+\item{aesthetics}{character string or vector of character strings listing the name(s) of the aesthetic(s) that this scale works with.}
 }
 \description{
-Scale color from wax_palette
+This function allows the user to customize the color scale in a ggplot2 plot by using the `wax_palette` function.
+The function takes a number of arguments to control the appearance of the color scale, including the alpha
+transparency, the hue at which the scale begins and ends, the direction of the color order, and the choice of
+palette. The function also has options for using a discrete or continuous scale, and for specifying the aesthetic
+(e.g. "colour" or "fill") that the scale should be applied to.
+}
+\examples{
+\dontrun{
+p <- ggplot(mpg, aes(displ, hwy)) +
+  geom_point()
+p + scale_fill_wax_c()
+}
+
 }

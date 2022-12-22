@@ -83,19 +83,32 @@ wax_pal2 <- function(alpha = 1, begin = 0, end = 1, direction = 1, option = "c_s
 }
 
 
-#' Scale color from wax_palette
+#' Customize color scale in ggplot2 using the wax_palette function
 #'
-#' @param ... is the information passed to the underlying functions. Auto-completed, please ignore.
-#' @param alpha is the alpha transparency, a number in [0,1], see argument alpha in hsv.
-#' @param begin is the (corrected) hue in [0,1] at which the color map begins.
-#' @param end is the (corrected) hue in [0,1] at which the color map ends.
+#' @description
+#' This function allows the user to customize the color scale in a ggplot2 plot by using the `wax_palette` function.
+#' The function takes a number of arguments to control the appearance of the color scale, including the alpha
+#' transparency, the hue at which the scale begins and ends, the direction of the color order, and the choice of
+#' palette. The function also has options for using a discrete or continuous scale, and for specifying the aesthetic
+#' (e.g. "colour" or "fill") that the scale should be applied to.
+#'
+#' @param ... additional arguments to be passed to the underlying functions.
+#' @param alpha the alpha transparency, a number in [0,1], see argument alpha in hsv.
+#' @param begin the (corrected) hue in [0,1] at which the color map begins.
+#' @param end the (corrected) hue in [0,1] at which the color map ends.
 #' @param direction sets the order of colors in the scale. If 1, the default, colors are ordered from darkest to lightest. If -1, the order of colors is reversed.
-#' @param option is choice of palette in wax_colours data
-#' @param discrete Operator defining the use of the palette (TRUE for discrete, FALSE for continuous).
-#' @param aesthetics Character string or vector of character strings listing the
-#'   name(s) of the aesthetic(s) that this scale works with.
+#' @param option choice of palette in wax_colours data
+#' @param discrete operator defining the use of the palette (TRUE for discrete, FALSE for continuous).
+#' @param aesthetics character string or vector of character strings listing the name(s) of the aesthetic(s) that this scale works with.
 #'
 #' @import ggplot2
+#'
+#' @examples
+#' \dontrun{
+#' p <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#' p + scale_fill_wax_c()
+#'}
 #'
 scale_wax <- function(..., alpha = 1, begin = 0, end = 1, direction = 1,
                       discrete = FALSE, option = "c_single_hue", aesthetics = "colour") {
