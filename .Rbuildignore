@@ -1,1 +1,4 @@
 ^\.idea$
+^README\.rmd$
+^README\.html$
+^README_files$
