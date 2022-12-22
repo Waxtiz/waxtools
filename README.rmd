@@ -1,0 +1,59 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+WaxTools
+======
+
+```{r echo=FALSE}
+# knitr::opts_chunk$set(
+# )
+
+sysfonts::font_add_google(name = "Fira Sans", family = "fira-sans")
+sysfonts::font_add_google(name = "Roboto Slab", family = "roboto-slab")
+
+showtext::showtext_auto()
+```
+
+## Overview
+
+`waxtools` is a package that brings together a set of useful and practical functions to facilitate work in the field, mainly, of ecology. It offers functions to customize `ggplot2` graphs, check and correct `sf` object geometry, create beautiful commented titles to separate scripts, and perform other specific tasks such as cleaning up data sets, calculating cumulative specific richness, etc. With its variety of functions, `waxtools` can be used effectively and conveniently in various contexts and projects.
+
+## Installation
+```{r eval=FALSE}
+devtools::install_github("waxtiz/waxtools")
+```
+
+```{r}
+library(waxtools)
+```
+
+
+## Usage
+
+### waxtheme
+```{r, warning = F}
+library(ggplot2)
+library(waxtools)
+
+
+ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
+  geom_point() +
+  labs(title = "First, a chart title",
+       subtitle = "Below, a subtitle",
+       caption = "And finally, a caption text.") +
+  theme_wax(theme = "wax") +
+  scale_color_wax_d()
+
+```
+
+#### Fonts
+The fonts are previously downloaded using the sysfonts package :
+```{r eval=FALSE}
+sysfonts::font_add_google(name = "Fira Sans", family = "fira-sans")
+sysfonts::font_add_google(name = "Roboto Slab", family = "roboto-slab")
+
+showtext::showtext_auto()
+```
