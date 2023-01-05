@@ -22,10 +22,15 @@ Imports:
     magrittr,
     methods,
     plyr,
+    dplyr,
+    igraph,
+    tidygraph,
+    sfnetworks,
     sf,
     utils,
     stringr,
-    stringi
+    stringi,
+    rstudioapi
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = FALSE)
