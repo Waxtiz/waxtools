@@ -1,7 +1,7 @@
 Type: Package
 Package: waxtools
-Title: Daily tools for R
-Version: 1.1
+Title: Daily wax tools for R
+Version: 1.2
 Date: 2022-12-20
 Author: Titouan Leclerc [aut, cre]
 Maintainer: Titouan Leclerc <t_leclerc@hotmail.fr>
@@ -9,7 +9,7 @@ Description: Personal functions to improve my daily life as an R
     programmer.
 License: GPL-3
 Depends: 
-    R (>= 4.2.0)
+    R (>= 4.2.1)
 Imports:
     cleangeo,
     crayon,
@@ -30,7 +30,8 @@ Imports:
     utils,
     stringr,
     stringi,
-    rstudioapi
+    rstudioapi,
+    lubridate
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = FALSE)

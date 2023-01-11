@@ -1,4 +1,3 @@
-
 #' Sample a starting node from a graph (for loops)
 #'
 #' This function selects a node at random from a graph and returns it.
@@ -360,7 +359,7 @@ multiple_sample_in_net <- function(g, n, min_length, max_length, clean, overlap_
       }
 
       # Check if the time limit has been exceeded
-      if (difftime(Sys.time(), start_time) > 30) { # 30 secondes
+      if (difftime(Sys.time(), start_time) > 30) { # limit are fixend at 30 secondes
         if (i == 0) {
           # If it is the first path, start the loop again without incrementing i
           message("The parameters seem to be very strict. It is complicated to find a loop. Please wait or shut-down the function and increase the difference between min_length and max_length.")
@@ -370,7 +369,7 @@ multiple_sample_in_net <- function(g, n, min_length, max_length, clean, overlap_
           # If it is not the first path, delete the first path of the dataframe and start
           # the loop again without incrementing i
           message("The loops seem to be in conflict. The first loop is deleted to try to speed up the process.")
-          start_time <- Sys.time()
+          start_time <- Sys.time() # resets the time counter
           paths_df <- paths_df[-1,]
           break
         }
