@@ -182,7 +182,6 @@ H5 <- function(text, even = T, nchartext, max_length, char) {
 #'
 #' @param text is a title
 #' @param heading is the desired heading level. Levels are inspired by HTML titles.
-#' @param ide is the current integrated development environment. Used to set title width. Only Pycharm & Rstudio are currently supported.
 #' @param char is fill character. "#" by default.
 #'
 #' @importFrom glue glue
@@ -190,13 +189,16 @@ H5 <- function(text, even = T, nchartext, max_length, char) {
 #' @importFrom utils writeClipboard
 #'
 #' @export
-com <- function(text = NULL, heading = "h3", ide = "pycharm", char = "#") {
-  if (ide == "pycharm") {
-    max_length <- 120
-  } else if (ide == "rstudio") {
+com <- function(text = NULL, heading = "h3", char = "#") {
+
+  if(!exists("ide_var")) {
+    warning("The ide_var option is not defined, please run the setup of the package first")
+  }
+
+  if (options("ide_var") == "RStudio") {
     max_length <- 80
   } else {
-    stop("The 'ide' parameter is probably wrong. For now, only 'pycharm' or 'rstudio' IDEs are supported. Please enter one of these values in the 'ide' option.")
+    max_length <- 120
   }
 
   if (is.null(text)) {
@@ -226,4 +228,16 @@ com <- function(text = NULL, heading = "h3", ide = "pycharm", char = "#") {
   }
   writeClipboard(com)
   message(blue("\nYour comment has been successfully copied to the clipboard.\n"))
+}
+
+
+#' Detects if the user is using Rstudio or not
+#' @param libname character. The name of the library where the package is loaded.
+#' @param pkgname character. The name of the package.
+.onAttach <- function(libname, pkgname) {
+  if (Sys.getenv("RSTUDIO") == "1") {
+    options(ide_var = "RStudio")
+  } else {
+    options(ide_var = "PyCharm")
+  }
 }

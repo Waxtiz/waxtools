@@ -4,14 +4,12 @@
 \alias{com}
 \title{Defines the style of a levels title in comment}
 \usage{
-com(text = NULL, heading = "h3", ide = "pycharm", char = "#")
+com(text = NULL, heading = "h3", char = "#")
 }
 \arguments{
 \item{text}{is a title}
 
 \item{heading}{is the desired heading level. Levels are inspired by HTML titles.}
-
-\item{ide}{is the current integrated development environment. Used to set title width. Only Pycharm & Rstudio are currently supported.}
 
 \item{char}{is fill character. "#" by default.}
 }

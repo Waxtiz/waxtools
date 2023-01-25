@@ -7,7 +7,7 @@ output: github_document
 WaxTools
 ======
 
-```{r echo=FALSE}
+```{r, echo=FALSE}
 knitr::opts_chunk$set(
   fig.path = "README_files/"
 )
@@ -16,14 +16,16 @@ sysfonts::font_add_google(name = "Fira Sans", family = "fira-sans")
 sysfonts::font_add_google(name = "Roboto Slab", family = "roboto-slab")
 
 showtext::showtext_auto()
+
 ```
 
 ## Overview
 
-`waxtools` is a package that brings together a set of useful and practical functions to facilitate work in the field, mainly, of ecology. It offers functions to customize `ggplot2` graphs, check and correct `sf` object geometry, create beautiful commented titles to separate scripts, and perform other specific tasks such as cleaning up data sets, calculating cumulative specific richness, etc. With its variety of functions, `waxtools` can be used effectively and conveniently in various contexts and projects.
+`waxtools` is a package that brings together a set of useful day-to-day functions to facilitate work in the field of (mainly) ecology. It offers functions to clean up your datasets, customize your `ggplot2` graphs, check and correct the geometry of sf objects, create nice commented titles to separate scripts, and perform other specific tasks such as calculating cumulative specific richness, reformatting dates into a French format, etc. Thanks to the variety of its functions, `waxtools` can be used efficiently and conveniently in a variety of contexts and projects.
+
 
 ## Installation
-```{r eval=FALSE}
+```{r, eval=FALSE}
 devtools::install_github("waxtiz/waxtools")
 ```
 
@@ -34,11 +36,53 @@ library(waxtools)
 
 ## Usage
 
-### waxtheme
-```{r, warning = F}
+### Match taxons names
+find_cd_name allows to use the INPN API to find by fuzzy search a list of taxon names.
+
+```{r}
+list_sci_species <- unique(naturalist_df$name)[1:5]
+list_sci_species
+```
+```{r, eval = FALSE}
+result <- waxtools::find_cd_nom(list_sci_species)[,1:8]
+kableExtra::kable(result)
+```
+
+```{r, echo = FALSE}
+result <- structure(list(sp = c("Casmerodius albus", "Ardea cinerea", "Alcedo atthis",
+"Fulica atra", "Aegithalos caudatus"), id = c(2502L, 2506L, 3571L,
+3070L, 4342L), referenceId = c(2504L, 2506L, 3571L, 3070L, 4342L
+), parentId = c(NA, 189420L, 188938L, 192644L, 188838L), scientificName = c("Casmerodius albus",
+"Ardea cinerea", "Alcedo atthis", "Fulica atra", "Aegithalos caudatus"
+), authority = c("(Linnaeus, 1758)", "Linnaeus, 1758", "(Linnaeus, 1758)",
+"Linnaeus, 1758", "(Linnaeus, 1758)"), fullName = c("Casmerodius albus (Linnaeus, 1758)",
+"Ardea cinerea Linnaeus, 1758", "Alcedo atthis (Linnaeus, 1758)",
+"Fulica atra Linnaeus, 1758", "Aegithalos caudatus (Linnaeus, 1758)"
+), fullNameHtml = c("<i>Casmerodius albus</i> (Linnaeus, 1758)",
+"<i>Ardea cinerea</i> Linnaeus, 1758", "<i>Alcedo atthis</i> (Linnaeus, 1758)",
+"<i>Fulica atra</i> Linnaeus, 1758", "<i>Aegithalos caudatus</i> (Linnaeus, 1758)"
+)), class = "data.frame", row.names = c(NA, -5L))
+kableExtra::kable(result)
+```
+
+### Calculate the cumulative taxonomic richness
+
+```{r, cache = TRUE}
 library(ggplot2)
 library(waxtools)
 
+result <- naturalist_df %>%
+        calc_rich_sp("name", "date")
+
+ggplot(result, aes(date, cumulative_richness)) +
+  geom_point()
+
+```
+
+### waxtheme
+```{r, warning = F, cache = TRUE}
+library(ggplot2)
+library(waxtools)
 
 ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
   geom_point() +
@@ -47,11 +91,10 @@ ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
        caption = "And finally, a caption text.") +
   theme_wax(theme = "wax") +
   scale_color_wax_d()
-
 ```
 
 wax_theme uses by default the R fonts. However, it is possible to enter the "wax" value in the theme parameter of the wax_theme function to use other fonts. In this case, the fonts can be loaded like this:
-```{r eval=FALSE}
+```{r, eval=FALSE}
 sysfonts::font_add_google(name = "Fira Sans", family = "fira-sans")
 sysfonts::font_add_google(name = "Roboto Slab", family = "roboto-slab")
 

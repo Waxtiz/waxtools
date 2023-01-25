@@ -9,7 +9,7 @@ Description: Personal functions to improve my daily life as an R
     programmer.
 License: GPL-3
 Depends: 
-    R (>= 4.2.1)
+    R (>= 4.2.0)
 Imports:
     cleangeo,
     crayon,

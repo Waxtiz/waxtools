@@ -88,3 +88,4 @@ clean_df <- function(df, remove_space = TRUE, lower_case = TRUE, latin_ascii = T
 
   as.data.frame(df)
 }
+

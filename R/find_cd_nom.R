@@ -9,9 +9,7 @@
 #' @importFrom httr content
 #' @importFrom httr GET
 #' @importFrom httr content_type_json
-#' @importFrom jsonlite fromJSON
-#'
-#' @return A JSON containing the response from the TAXREF API.
+#' @impoonl#' @return A JSON containing the response from the TAXREF API.
 use_taxref_api <- function(url) {
   output <- content(
     GET(url),             # url correspond a l'url a interroger
@@ -81,11 +79,11 @@ query_to_taxref_api <- function(sp, lang, group_fr) {
   res <- res[,-length(res)]
 
   if (is.null(output$`_embedded`)) {
-    warning("No match found for this query")
-    return(NULL)
+    warning(paste0("No match found for this species: ", sp))
+    res <- NULL
   }
 
-  if (nrow(res) > 1) {
+  if (nrow(res) > 1 && !is.null(res)) {
     if (length(unique(res$referenceId)) == 1) {
       res[res$id == unique(res$referenceId),]
     } else {
@@ -102,12 +100,25 @@ query_to_taxref_api <- function(sp, lang, group_fr) {
 #' @importFrom plyr ldply
 #' @rdname query_to_taxref_api
 query_loop_to_taxref_api <- function(sp, lang, group_fr) {
+
+  pb <- txtProgressBar(min = 0,      # Minimum value of the progress bar
+                       max = length(sp), # Maximum value of the progress bar
+                       style = 3,    # Progress bar style (also available style = 1 and style = 2)
+                       width = 50,   # Progress bar width. Defaults to getOption("width")
+                       char = "=")   # Character used to create the bar
+
   list <- list()
   for (i in seq_along(sp)) {
     res <- query_to_taxref_api(sp[i], lang, group_fr)
-    col_names <- colnames(res)
-    list[[length(list)+1]] <- res
-    names(list)[i] <- sp[i]
+    if (is.null(res)) {
+      list[[length(list)+1]] <- "not_fined"
+      names(list)[i] <- sp[i]
+    } else {
+      col_names <- colnames(res)
+      list[[length(list)+1]] <- res
+      names(list)[i] <- sp[i]
+    }
+    setTxtProgressBar(pb, i)
   }
   output <- ldply(list, data.frame)
   colnames(output) <- c("sp", col_names)
