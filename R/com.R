@@ -191,7 +191,7 @@ H5 <- function(text, even = T, nchartext, max_length, char) {
 #' @export
 com <- function(text = NULL, heading = "h3", char = "#") {
 
-  if(is.null(getOption("ide_var")) == FALSE) {
+  if (is.null(getOption("ide_var"))) {
     warning("The ide_var option is not defined, please run the setup of the package first")
   }
 
