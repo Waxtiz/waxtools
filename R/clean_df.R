@@ -57,9 +57,6 @@ clean_colnames <- function(df, remove_space = TRUE, lower_case = TRUE, latin_asc
 #' @param remove_space A logical indicating if spaces should be removed from the data frame. Default is TRUE.
 #' @param lower_case A logical indicating if the data frame should be converted to lower case. Default is TRUE.
 #' @param latin_ascii A logical indicating if the data frame should be converted to Latin-ASCII. Default is TRUE.
-#' @param clean_colnames A logical indicating if the column names should also be cleaned. Default is TRUE.
-#' @param regex_colnames A logical indicating if the column names should be cleaned up using a predefined regular
-#' expression pattern. Default is TRUE.
 #'
 #' @return a data frame with cleaned and formatted data.
 #'
@@ -67,8 +64,7 @@ clean_colnames <- function(df, remove_space = TRUE, lower_case = TRUE, latin_asc
 #' @importFrom stringi stri_trans_general
 #'
 #' @export
-clean_df <- function(df, remove_space = TRUE, lower_case = TRUE, latin_ascii = TRUE,
-                     clean_colnames = TRUE, regex_colnames = TRUE) {
+clean_df <- function(df, remove_space = TRUE, lower_case = TRUE, latin_ascii = TRUE) {
 
   if (remove_space) {
     df <- lapply(df, str_squish)
@@ -79,11 +75,8 @@ clean_df <- function(df, remove_space = TRUE, lower_case = TRUE, latin_ascii = T
   if (latin_ascii) {
     df <- lapply(df, stri_trans_general, "Latin-ASCII")
   }
-  if (clean_colnames) {
-    df <- clean_colnames(df, remove_space, lower_case, latin_ascii, regex_colnames)
-  }
   if (sum(duplicated(df) == T) > 0) {
-    warning("Be careful, duplicate rows have been detected in the dataset (with the duplicated() function).")
+    warning("Be careful, duplicate rows have been detected in the dataset (see with duplicated() function).")
   }
 
   as.data.frame(df)

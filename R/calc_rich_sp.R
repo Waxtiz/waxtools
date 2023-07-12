@@ -25,40 +25,30 @@
 #' calc_rich_sp(df, sp = "sp", date = "date")
 #'
 #' @export
-calc_rich_sp <- function(df, sp, date) {
-  tryCatch({
-    # Check that the specified columns are present in the dataframe and of the appropriate types
-    if (!(sp %in% names(df)) || !is.character(df[[sp]])) {
-      stop("The column specified for species does not exist or is not of type character.")
-    }
-    if (!(date %in% names(df)) || !inherits(df[[date]], "Date")) {
-      stop("The column specified for dates does not exist or is not of type Date.")
-    }
+calc_rich_sp <- function(.data, sp, date) {
+  sp <- quo_name(enquo(sp))
+  date <- quo_name(enquo(date))
 
-    # Order df by date
-    df <- df[order(df[[date]]),]
+  # Order .data by date
+  .data <- .data[order(.data[[date]]),]
 
-    # Get list of unique species
-    unique_species <- unique(df[, sp])
+  # Get list of unique species
+  unique_species <- unique(.data[, sp])
 
-    # Find first occurrence of each species
-    indices <- sapply(unique_species, function(x) match(x, df[, sp]))
+  # Find first occurrence of each species
+  indices <- sapply(unique_species, function(x) match(x, .data[, sp]))
 
-    # Count number of occurrences of each date
-    dates <- df[indices, date]
-    occurrences <- table(dates)
+  # Count number of occurrences of each date
+  dates <- .data[indices, date]
+  occurrences <- table(dates)
 
-    # Calculate cumulative sum of unique species observed over time
-    cumulative_richness <- cumsum(occurrences)
+  # Calculate cumulative sum of unique species observed over time
+  cumulative_richness <- cumsum(occurrences)
 
-    cumulative_richness <- as.data.frame(cumulative_richness)
-    cumulative_richness$date <- row.names(cumulative_richness)
-    rownames(cumulative_richness) <- seq.int(nrow(cumulative_richness))
+  cumulative_richness <- as.data.frame(cumulative_richness)
+  cumulative_richness$date <- row.names(cumulative_richness)
+  rownames(cumulative_richness) <- seq.int(nrow(cumulative_richness))
 
-    # Return result
-    return(cumulative_richness)
-  }, error = function(e) {
-    # Print error message
-    message(paste0("An error has occurred:\n", e))
-  })
+  # Return result
+  return(cumulative_richness)
 }

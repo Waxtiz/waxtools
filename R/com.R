@@ -195,7 +195,7 @@ com <- function(text = NULL, heading = "h3", char = "#") {
     warning("The ide_var option is not defined, please run the setup of the package first")
   }
 
-  if (options("ide_var") == "RStudio") {
+  if (getOption("ide_var") == "RStudio") {
     max_length <- 80
   } else {
     max_length <- 120
@@ -214,9 +214,9 @@ com <- function(text = NULL, heading = "h3", char = "#") {
       com <- H2(text, nchar_is_even_text, nchartext, max_length, char)
     } else if (heading == "h1" | heading == 1) {
       com <- H1(text, nchar_is_even_text, nchartext, max_length, char)
-    } else if (heading == "h2_simple") {
+    } else if (heading == "h2s") {
       com <- H2_simple(text, nchar_is_even_text, nchartext, max_length, char)
-    } else if (heading == "h2_full") {
+    } else if (heading == "h2f") {
       com <- H2_full(text, nchar_is_even_text, nchartext, max_length, char)
     } else if (heading == "h4" | heading == 4) {
       com <- H4(text, nchar_is_even_text, nchartext, max_length, char)
@@ -231,13 +231,4 @@ com <- function(text = NULL, heading = "h3", char = "#") {
 }
 
 
-#' Detects if the user is using Rstudio or not
-#' @param libname character. The name of the library where the package is loaded.
-#' @param pkgname character. The name of the package.
-.onAttach <- function(libname, pkgname) {
-  if (Sys.getenv("RSTUDIO") == "1") {
-    options(ide_var = "RStudio")
-  } else {
-    options(ide_var = "PyCharm")
-  }
-}
+
