@@ -197,8 +197,12 @@ com <- function(text = NULL, heading = "h3", char = "#") {
 
   if (getOption("ide_var") == "RStudio") {
     max_length <- 80
-  } else {
+  } else if (getOption("ide_var") == "Other") {
     max_length <- 120
+  } else if (is.numeric(getOption("ide_var"))) {
+    max_length <- getOption("ide_var")
+  } else {
+    max_length <- 60
   }
 
   if (is.null(text)) {
