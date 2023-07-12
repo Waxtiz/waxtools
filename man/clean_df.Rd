@@ -4,14 +4,7 @@
 \alias{clean_df}
 \title{Clean a data frame}
 \usage{
-clean_df(
-  df,
-  remove_space = TRUE,
-  lower_case = TRUE,
-  latin_ascii = TRUE,
-  clean_colnames = TRUE,
-  regex_colnames = TRUE
-)
+clean_df(df, remove_space = TRUE, lower_case = TRUE, latin_ascii = TRUE)
 }
 \arguments{
 \item{df}{A data frame. The data frame to clean.}
@@ -21,11 +14,6 @@ clean_df(
 \item{lower_case}{A logical indicating if the data frame should be converted to lower case. Default is TRUE.}
 
 \item{latin_ascii}{A logical indicating if the data frame should be converted to Latin-ASCII. Default is TRUE.}
-
-\item{clean_colnames}{A logical indicating if the column names should also be cleaned. Default is TRUE.}
-
-\item{regex_colnames}{A logical indicating if the column names should be cleaned up using a predefined regular
-expression pattern. Default is TRUE.}
 }
 \value{
 a data frame with cleaned and formatted data.

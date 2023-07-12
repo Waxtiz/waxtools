@@ -4,14 +4,14 @@
 \alias{calc_rich_sp}
 \title{Calculate cumulative richness of species over time}
 \usage{
-calc_rich_sp(df, sp, date)
+calc_rich_sp(.data, sp, date)
 }
 \arguments{
-\item{df}{A data frame with columns `sp` and `date`.}
-
 \item{sp}{The name of the column in `df` containing species names.}
 
 \item{date}{The name of the column in `df` containing dates.}
+
+\item{df}{A data frame with columns `sp` and `date`.}
 }
 \value{
 A data frame with columns `cumulative_richness` and `date`.
