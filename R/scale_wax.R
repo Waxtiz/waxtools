@@ -36,7 +36,16 @@ wax_colours <- list(
              "#8b5196",
              "#ff6361",
              "#ffb140"
-  )
+  ),
+  c_vigi_pal = c("#04151F",
+                  "#082A35",
+                  "#083843",
+                  "#0B4850",
+                  "#24615F",
+                  "#57846F",
+                  "#8EA580",
+                  "#EFD6AC"
+                  )
 )
 
 #' Prepare color palette like viridis methode
