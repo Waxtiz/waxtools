@@ -3,6 +3,19 @@
 
 # WaxTools
 
+    ## Warning: le package 'dplyr' a été compilé avec la version R 4.2.3
+
+    ## 
+    ## Attachement du package : 'dplyr'
+
+    ## Les objets suivants sont masqués depuis 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## Les objets suivants sont masqués depuis 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
 ## Overview
 
 `waxtools` is a package that brings together a set of useful day-to-day
@@ -25,189 +38,98 @@ devtools::install_github("waxtiz/waxtools")
 library(waxtools)
 ```
 
+    ## The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,
+    ## which was just loaded, will retire in October 2023.
+    ## Please refer to R-spatial evolution reports for details, especially
+    ## https://r-spatial.org/r/2023/05/15/evolution4.html.
+    ## It may be desirable to make the sf package available;
+    ## package maintainers should consider adding sf to Suggests:.
+    ## The sp package is now running under evolution status 2
+    ##      (status 2 uses the sf package in place of rgdal)
+
+    ## IDE has been correctly identified for com() function
+
 ## Usage
 
-### Match taxons names
+### The comment formatting function
 
-find_cd_name allows to use the INPN API to find by fuzzy search a list
-of taxon names.
-
-``` r
-list_sci_species <- unique(naturalist_df$name)
-list_sci_species
-```
-
-    ##  [1] "Sciurus vulgaris"    "Rupicapra rupicapra" "Capreolus capreolus"
-    ##  [4] "Myocastor coypus"    "Sus scrofa"          "Vulpes vulpes"      
-    ##  [7] "Meles meles"         "Felis silvestris"    "Castor fiber"       
-    ## [10] "Mustela erminea"     "Cervus elaphus"
+Very simple function, but so useful in everyday life. Use it to segment
+your script with titles and subtitles, like h1, h2, h3… in html. Write
+your com() in the console, and the title will be put in your clipboard.
 
 ``` r
-result <- waxtools::find_cd_nom(list_sci_species)
-kableExtra::kable(result[1:4, 1:8])
+com("Project illustrating extremely well-organized code", heading = 1) # This is a H1
+################################################################################
+###                                                                          ###
+###            Project illustrating extremely well-organized code            ###
+###                                                                          ###
+################################################################################
+
+
+
+com("This section contains the loading of dependencies and datasets.", 2) # This is a H2
+################################################################################
+###     This section contains the loading of dependencies and datasets.      ###
+################################################################################
+
+
+com("Let's get to work!", 2) # H2 again
+################################################################################
+###                            Let's get to work!                            ###
+################################################################################
+
+
+
+com("First, let's clean up the dataset") # H3 (defaut value)
+###################### First, let's clean up the dataset #######################
+
+
+
+com("And let's visualize it:", 4) # H4 (etc.)
+                         #  And let's visualize it:  #
 ```
 
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-sp
-</th>
-<th style="text-align:right;">
-id
-</th>
-<th style="text-align:right;">
-referenceId
-</th>
-<th style="text-align:right;">
-parentId
-</th>
-<th style="text-align:left;">
-scientificName
-</th>
-<th style="text-align:left;">
-authority
-</th>
-<th style="text-align:left;">
-fullName
-</th>
-<th style="text-align:left;">
-fullNameHtml
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Sciurus vulgaris
-</td>
-<td style="text-align:right;">
-61153
-</td>
-<td style="text-align:right;">
-61153
-</td>
-<td style="text-align:right;">
-197486
-</td>
-<td style="text-align:left;">
-Sciurus vulgaris
-</td>
-<td style="text-align:left;">
-Linnaeus, 1758
-</td>
-<td style="text-align:left;">
-Sciurus vulgaris Linnaeus, 1758
-</td>
-<td style="text-align:left;">
-\<i\>Sciurus vulgaris\</i\> Linnaeus, 1758
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rupicapra rupicapra
-</td>
-<td style="text-align:right;">
-61119
-</td>
-<td style="text-align:right;">
-61119
-</td>
-<td style="text-align:right;">
-197289
-</td>
-<td style="text-align:left;">
-Rupicapra rupicapra
-</td>
-<td style="text-align:left;">
-(Linnaeus, 1758)
-</td>
-<td style="text-align:left;">
-Rupicapra rupicapra (Linnaeus, 1758)
-</td>
-<td style="text-align:left;">
-\<i\>Rupicapra rupicapra\</i\> (Linnaeus, 1758)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Capreolus capreolus
-</td>
-<td style="text-align:right;">
-61057
-</td>
-<td style="text-align:right;">
-61057
-</td>
-<td style="text-align:right;">
-190320
-</td>
-<td style="text-align:left;">
-Capreolus capreolus
-</td>
-<td style="text-align:left;">
-(Linnaeus, 1758)
-</td>
-<td style="text-align:left;">
-Capreolus capreolus (Linnaeus, 1758)
-</td>
-<td style="text-align:left;">
-\<i\>Capreolus capreolus\</i\> (Linnaeus, 1758)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Myocastor coypus
-</td>
-<td style="text-align:right;">
-61667
-</td>
-<td style="text-align:right;">
-61667
-</td>
-<td style="text-align:right;">
-194991
-</td>
-<td style="text-align:left;">
-Myocastor coypus
-</td>
-<td style="text-align:left;">
-(Molina, 1782)
-</td>
-<td style="text-align:left;">
-Myocastor coypus (Molina, 1782)
-</td>
-<td style="text-align:left;">
-\<i\>Myocastor coypus\</i\> (Molina, 1782)
-</td>
-</tr>
-</tbody>
-</table>
-
-### waxtheme
+### WaxTheme
 
 ``` r
 library(ggplot2)
 library(waxtools)
 
-ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
-  geom_point() +
-  labs(title = "First, a chart title",
-       subtitle = "Below, a subtitle",
+p1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
+  geom_point(size = 3) +
+  labs(title = "Discrete color palette...",
+       subtitle = "A subtitle",
        caption = "And finally, a caption text.") +
   theme_wax(theme = "wax") +
-  scale_color_wax_d()
+  scale_color_wax_d() # or scale_color_wax(discrete = T)
+
+p2 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = ..y..)) +
+  geom_point(size = 3) +
+  labs(title = "... or continuous",
+       subtitle = "A subtitle",
+       caption = "And finally, a caption text.") +
+  theme_wax(theme = "wax") +
+  scale_color_wax_c(name = "Petal Length") # or scale_color_wax(discrete = F)
+
+gridExtra::grid.arrange(p1, p2, ncol=2)
 ```
 
-![](README_files/unnamed-chunk-7-1.png)<!-- -->
+![](README_files/unnamed-chunk-5-1.png)<!-- -->
 
-wax_theme uses by default the R fonts. However, it is possible to enter
-the “wax” value in the theme parameter of the wax_theme function to use
-other fonts. In this case, the fonts can be loaded like this:
+### Calculate the cumulative taxonomic richness
 
 ``` r
-sysfonts::font_add_google(name = "Fira Sans", family = "fira-sans")
-sysfonts::font_add_google(name = "Roboto Slab", family = "roboto-slab")
+library(ggplot2)
+library(waxtools)
 
-showtext::showtext_auto()
+result <- naturalist_df %>%
+        calc_rich_sp("name", "date")
+
+ggplot(result, aes(as.Date(date), cumulative_richness)) +
+  geom_area(alpha = .75) +
+  theme_wax()
 ```
+
+![](README_files/unnamed-chunk-6-1.png)<!-- -->
+
+### And more…

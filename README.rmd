@@ -11,6 +11,7 @@ WaxTools
 knitr::opts_chunk$set(
   fig.path = "README_files/"
 )
+library(dplyr)
 
 sysfonts::font_add_google(name = "Fira Sans", family = "fira-sans")
 sysfonts::font_add_google(name = "Roboto Slab", family = "roboto-slab")
@@ -36,34 +37,67 @@ library(waxtools)
 
 ## Usage
 
-### Match taxons names
-find_cd_name allows to use the INPN API to find by fuzzy search a list of taxon names.
+### The comment formatting function
+Very simple function, but so useful in everyday life. Use it to segment your script with titles and subtitles, like h1, h2, h3... in html. Write your com() in the console, and the title will be put in your clipboard.
 
-```{r}
-list_sci_species <- unique(naturalist_df$name)[1:5]
-list_sci_species
-```
 ```{r, eval = FALSE}
-result <- waxtools::find_cd_nom(list_sci_species)[,1:8]
-kableExtra::kable(result)
+com("Project illustrating extremely well-organized code", heading = 1) # This is a H1
+################################################################################
+###                                                                          ###
+###            Project illustrating extremely well-organized code            ###
+###                                                                          ###
+################################################################################
+
+
+
+com("This section contains the loading of dependencies and datasets.", 2) # This is a H2
+################################################################################
+###     This section contains the loading of dependencies and datasets.      ###
+################################################################################
+
+
+com("Let's get to work!", 2) # H2 again
+################################################################################
+###                            Let's get to work!                            ###
+################################################################################
+
+
+
+com("First, let's clean up the dataset") # H3 (defaut value)
+###################### First, let's clean up the dataset #######################
+
+
+
+com("And let's visualize it:", 4) # H4 (etc.)
+                         #  And let's visualize it:  #
 ```
 
-```{r, echo = FALSE}
-result <- structure(list(sp = c("Casmerodius albus", "Ardea cinerea", "Alcedo atthis",
-"Fulica atra", "Aegithalos caudatus"), id = c(2502L, 2506L, 3571L,
-3070L, 4342L), referenceId = c(2504L, 2506L, 3571L, 3070L, 4342L
-), parentId = c(NA, 189420L, 188938L, 192644L, 188838L), scientificName = c("Casmerodius albus",
-"Ardea cinerea", "Alcedo atthis", "Fulica atra", "Aegithalos caudatus"
-), authority = c("(Linnaeus, 1758)", "Linnaeus, 1758", "(Linnaeus, 1758)",
-"Linnaeus, 1758", "(Linnaeus, 1758)"), fullName = c("Casmerodius albus (Linnaeus, 1758)",
-"Ardea cinerea Linnaeus, 1758", "Alcedo atthis (Linnaeus, 1758)",
-"Fulica atra Linnaeus, 1758", "Aegithalos caudatus (Linnaeus, 1758)"
-), fullNameHtml = c("<i>Casmerodius albus</i> (Linnaeus, 1758)",
-"<i>Ardea cinerea</i> Linnaeus, 1758", "<i>Alcedo atthis</i> (Linnaeus, 1758)",
-"<i>Fulica atra</i> Linnaeus, 1758", "<i>Aegithalos caudatus</i> (Linnaeus, 1758)"
-)), class = "data.frame", row.names = c(NA, -5L))
-kableExtra::kable(result)
+### WaxTheme
+```{r, warning = F, cache = TRUE}
+library(ggplot2)
+library(waxtools)
+
+p1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
+  geom_point(size = 3) +
+  labs(title = "Discrete color palette...",
+       subtitle = "A subtitle",
+       caption = "And finally, a caption text.") +
+  theme_wax(theme = "wax") +
+  scale_color_wax_d() # or scale_color_wax(discrete = T)
+
+p2 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = ..y..)) +
+  geom_point(size = 3) +
+  labs(title = "... or continuous",
+       subtitle = "A subtitle",
+       caption = "And finally, a caption text.") +
+  theme_wax(theme = "wax") +
+  scale_color_wax_c(name = "Petal Length") # or scale_color_wax(discrete = F)
+
+gridExtra::grid.arrange(p1, p2, ncol=2)
+
+
 ```
+
 
 ### Calculate the cumulative taxonomic richness
 
@@ -74,29 +108,10 @@ library(waxtools)
 result <- naturalist_df %>%
         calc_rich_sp("name", "date")
 
-ggplot(result, aes(date, cumulative_richness)) +
-  geom_point()
+ggplot(result, aes(as.Date(date), cumulative_richness)) +
+  geom_area(alpha = .75) +
+  theme_wax()
 
 ```
 
-### waxtheme
-```{r, warning = F, cache = TRUE}
-library(ggplot2)
-library(waxtools)
-
-ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
-  geom_point() +
-  labs(title = "First, a chart title",
-       subtitle = "Below, a subtitle",
-       caption = "And finally, a caption text.") +
-  theme_wax(theme = "wax") +
-  scale_color_wax_d()
-```
-
-wax_theme uses by default the R fonts. However, it is possible to enter the "wax" value in the theme parameter of the wax_theme function to use other fonts. In this case, the fonts can be loaded like this:
-```{r, eval=FALSE}
-sysfonts::font_add_google(name = "Fira Sans", family = "fira-sans")
-sysfonts::font_add_google(name = "Roboto Slab", family = "roboto-slab")
-
-showtext::showtext_auto()
-```
+### And more...
