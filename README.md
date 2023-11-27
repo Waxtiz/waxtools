@@ -3,19 +3,6 @@
 
 # WaxTools
 
-    ## Warning: le package 'dplyr' a été compilé avec la version R 4.2.3
-
-    ## 
-    ## Attachement du package : 'dplyr'
-
-    ## Les objets suivants sont masqués depuis 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## Les objets suivants sont masqués depuis 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
 ## Overview
 
 `waxtools` is a package that brings together a set of useful day-to-day
@@ -33,21 +20,6 @@ projects.
 ``` r
 devtools::install_github("waxtiz/waxtools")
 ```
-
-``` r
-library(waxtools)
-```
-
-    ## The legacy packages maptools, rgdal, and rgeos, underpinning the sp package,
-    ## which was just loaded, will retire in October 2023.
-    ## Please refer to R-spatial evolution reports for details, especially
-    ## https://r-spatial.org/r/2023/05/15/evolution4.html.
-    ## It may be desirable to make the sf package available;
-    ## package maintainers should consider adding sf to Suggests:.
-    ## The sp package is now running under evolution status 2
-    ##      (status 2 uses the sf package in place of rgdal)
-
-    ## IDE has been correctly identified for com() function
 
 ## Usage
 
@@ -95,26 +67,28 @@ com("And let's visualize it:", 4) # H4 (etc.)
 library(ggplot2)
 library(waxtools)
 
-p1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
+ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
   geom_point(size = 3) +
   labs(title = "Discrete color palette...",
        subtitle = "A subtitle",
        caption = "And finally, a caption text.") +
   theme_wax(theme = "wax") +
   scale_color_wax_d() # or scale_color_wax(discrete = T)
+```
 
-p2 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = ..y..)) +
+![](README_files/unnamed-chunk-5-1.png)<!-- -->
+
+``` r
+ggplot(iris, aes(Sepal.Length, Petal.Length, color = ..y..)) +
   geom_point(size = 3) +
   labs(title = "... or continuous",
        subtitle = "A subtitle",
        caption = "And finally, a caption text.") +
   theme_wax(theme = "wax") +
   scale_color_wax_c(name = "Petal Length") # or scale_color_wax(discrete = F)
-
-gridExtra::grid.arrange(p1, p2, ncol=2)
 ```
 
-![](README_files/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/unnamed-chunk-5-2.png)<!-- -->
 
 ### Calculate the cumulative taxonomic richness
 
