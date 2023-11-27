@@ -21,6 +21,12 @@ projects.
 devtools::install_github("waxtiz/waxtools")
 ```
 
+Then load it.
+
+``` r
+library(waxtools)
+```
+
 ## Usage
 
 ### The comment formatting function
@@ -29,36 +35,47 @@ Very simple function, but so useful in everyday life. Use it to segment
 your script with titles and subtitles, like h1, h2, h3… in html. Write
 your com() in the console, and the title will be put in your clipboard.
 
+**The console part:**
+
 ``` r
 com("Project illustrating extremely well-organized code", heading = 1) # This is a H1
+com("This section contains the loading of dependencies and datasets.", 2) # This is a H2
+com("Let's get to work!", 2) # H2 again
+com("First, let's clean up the dataset") # H3 (defaut value)
+com("And let's visualize it:", 4) # H4 (etc.)
+```
+
+**All that’s left to do is copy into the script:**
+
+``` r
 ################################################################################
 ###                                                                          ###
 ###            Project illustrating extremely well-organized code            ###
 ###                                                                          ###
 ################################################################################
 
-
-
-com("This section contains the loading of dependencies and datasets.", 2) # This is a H2
 ################################################################################
 ###     This section contains the loading of dependencies and datasets.      ###
 ################################################################################
 
+library(dplyr)
+library(ggplot2)
+library(waxtools)
 
-com("Let's get to work!", 2) # H2 again
+df_ori <- read.csv2("./input/data.csv")
+
 ################################################################################
 ###                            Let's get to work!                            ###
 ################################################################################
 
-
-
-com("First, let's clean up the dataset") # H3 (defaut value)
 ###################### First, let's clean up the dataset #######################
 
+df <- df %>% clean_df()
 
-
-com("And let's visualize it:", 4) # H4 (etc.)
                          #  And let's visualize it:  #
+
+ggplot(df, aes(.....))+
+    geom....
 ```
 
 ### WaxTheme
@@ -76,7 +93,7 @@ ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
   scale_color_wax_d() # or scale_color_wax(discrete = T)
 ```
 
-![](README_files/unnamed-chunk-5-1.png)<!-- -->
+![](README_files/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 ggplot(iris, aes(Sepal.Length, Petal.Length, color = ..y..)) +
@@ -88,7 +105,7 @@ ggplot(iris, aes(Sepal.Length, Petal.Length, color = ..y..)) +
   scale_color_wax_c(name = "Petal Length") # or scale_color_wax(discrete = F)
 ```
 
-![](README_files/unnamed-chunk-5-2.png)<!-- -->
+![](README_files/unnamed-chunk-7-2.png)<!-- -->
 
 ### Calculate the cumulative taxonomic richness
 
@@ -104,6 +121,6 @@ ggplot(result, aes(as.Date(date), cumulative_richness)) +
   theme_wax()
 ```
 
-![](README_files/unnamed-chunk-6-1.png)<!-- -->
+![](README_files/unnamed-chunk-8-1.png)<!-- -->
 
 ### And more…
