@@ -7,7 +7,7 @@ output: github_document
 WaxTools
 ======
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning = F}
 knitr::opts_chunk$set(
   fig.path = "README_files/"
 )
@@ -77,7 +77,7 @@ com("And let's visualize it:", 4) # H4 (etc.)
 library(ggplot2)
 library(waxtools)
 
-p1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
+ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
   geom_point(size = 3) +
   labs(title = "Discrete color palette...",
        subtitle = "A subtitle",
@@ -85,16 +85,13 @@ p1 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
   theme_wax(theme = "wax") +
   scale_color_wax_d() # or scale_color_wax(discrete = T)
 
-p2 <- ggplot(iris, aes(Sepal.Length, Petal.Length, color = ..y..)) +
+ggplot(iris, aes(Sepal.Length, Petal.Length, color = ..y..)) +
   geom_point(size = 3) +
   labs(title = "... or continuous",
        subtitle = "A subtitle",
        caption = "And finally, a caption text.") +
   theme_wax(theme = "wax") +
   scale_color_wax_c(name = "Petal Length") # or scale_color_wax(discrete = F)
-
-gridExtra::grid.arrange(p1, p2, ncol=2)
-
 
 ```
 
