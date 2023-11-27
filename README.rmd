@@ -7,7 +7,7 @@ output: github_document
 WaxTools
 ======
 
-```{r, echo=FALSE, warning = F}
+```{r, echo = F, warning = F, message = FALSE, include = FALSE}
 knitr::opts_chunk$set(
   fig.path = "README_files/"
 )
@@ -30,7 +30,7 @@ showtext::showtext_auto()
 devtools::install_github("waxtiz/waxtools")
 ```
 
-```{r}
+```{r, echo = F, echo = F, warning = F, message = FALSE}
 library(waxtools)
 ```
 
