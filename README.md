@@ -21,193 +21,106 @@ projects.
 devtools::install_github("waxtiz/waxtools")
 ```
 
+Then load it.
+
 ``` r
 library(waxtools)
 ```
 
 ## Usage
 
-### Match taxons names
+### The comment formatting function
 
-find_cd_name allows to use the INPN API to find by fuzzy search a list
-of taxon names.
+Very simple function, but so useful in everyday life. Use it to segment
+your script with titles and subtitles, like h1, h2, h3… in html. Write
+your com() in the console, and the title will be put in your clipboard.
 
-``` r
-list_sci_species <- unique(naturalist_df$name)
-list_sci_species
-```
-
-    ##  [1] "Sciurus vulgaris"    "Rupicapra rupicapra" "Capreolus capreolus"
-    ##  [4] "Myocastor coypus"    "Sus scrofa"          "Vulpes vulpes"      
-    ##  [7] "Meles meles"         "Felis silvestris"    "Castor fiber"       
-    ## [10] "Mustela erminea"     "Cervus elaphus"
+**The console part:**
 
 ``` r
-result <- waxtools::find_cd_nom(list_sci_species)
-kableExtra::kable(result[1:4, 1:8])
+com("Project illustrating extremely well-organized code", heading = 1) # This is a H1
+com("This section contains the loading of dependencies and datasets.", 2) # This is a H2
+com("Let's get to work!", 2) # H2 again
+com("First, let's clean up the dataset") # H3 (defaut value)
+com("And let's visualize it:", 4) # H4 (etc.)
 ```
 
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-sp
-</th>
-<th style="text-align:right;">
-id
-</th>
-<th style="text-align:right;">
-referenceId
-</th>
-<th style="text-align:right;">
-parentId
-</th>
-<th style="text-align:left;">
-scientificName
-</th>
-<th style="text-align:left;">
-authority
-</th>
-<th style="text-align:left;">
-fullName
-</th>
-<th style="text-align:left;">
-fullNameHtml
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Sciurus vulgaris
-</td>
-<td style="text-align:right;">
-61153
-</td>
-<td style="text-align:right;">
-61153
-</td>
-<td style="text-align:right;">
-197486
-</td>
-<td style="text-align:left;">
-Sciurus vulgaris
-</td>
-<td style="text-align:left;">
-Linnaeus, 1758
-</td>
-<td style="text-align:left;">
-Sciurus vulgaris Linnaeus, 1758
-</td>
-<td style="text-align:left;">
-\<i\>Sciurus vulgaris\</i\> Linnaeus, 1758
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rupicapra rupicapra
-</td>
-<td style="text-align:right;">
-61119
-</td>
-<td style="text-align:right;">
-61119
-</td>
-<td style="text-align:right;">
-197289
-</td>
-<td style="text-align:left;">
-Rupicapra rupicapra
-</td>
-<td style="text-align:left;">
-(Linnaeus, 1758)
-</td>
-<td style="text-align:left;">
-Rupicapra rupicapra (Linnaeus, 1758)
-</td>
-<td style="text-align:left;">
-\<i\>Rupicapra rupicapra\</i\> (Linnaeus, 1758)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Capreolus capreolus
-</td>
-<td style="text-align:right;">
-61057
-</td>
-<td style="text-align:right;">
-61057
-</td>
-<td style="text-align:right;">
-190320
-</td>
-<td style="text-align:left;">
-Capreolus capreolus
-</td>
-<td style="text-align:left;">
-(Linnaeus, 1758)
-</td>
-<td style="text-align:left;">
-Capreolus capreolus (Linnaeus, 1758)
-</td>
-<td style="text-align:left;">
-\<i\>Capreolus capreolus\</i\> (Linnaeus, 1758)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Myocastor coypus
-</td>
-<td style="text-align:right;">
-61667
-</td>
-<td style="text-align:right;">
-61667
-</td>
-<td style="text-align:right;">
-194991
-</td>
-<td style="text-align:left;">
-Myocastor coypus
-</td>
-<td style="text-align:left;">
-(Molina, 1782)
-</td>
-<td style="text-align:left;">
-Myocastor coypus (Molina, 1782)
-</td>
-<td style="text-align:left;">
-\<i\>Myocastor coypus\</i\> (Molina, 1782)
-</td>
-</tr>
-</tbody>
-</table>
+**All that’s left to do is copy into the script:**
 
-### waxtheme
+``` r
+################################################################################
+###                                                                          ###
+###            Project illustrating extremely well-organized code            ###
+###                                                                          ###
+################################################################################
+
+################################################################################
+###     This section contains the loading of dependencies and datasets.      ###
+################################################################################
+
+library(dplyr)
+library(ggplot2)
+library(waxtools)
+
+df_ori <- read.csv2("./input/data.csv")
+
+################################################################################
+###                            Let's get to work!                            ###
+################################################################################
+
+###################### First, let's clean up the dataset #######################
+
+df <- df %>% clean_df()
+
+                         #  And let's visualize it:  #
+
+ggplot(df, aes(.....))+
+    geom....
+```
+
+### WaxTheme
 
 ``` r
 library(ggplot2)
 library(waxtools)
 
 ggplot(iris, aes(Sepal.Length, Petal.Length, color = Species)) +
-  geom_point() +
-  labs(title = "First, a chart title",
-       subtitle = "Below, a subtitle",
+  geom_point(size = 3) +
+  labs(title = "Discrete color palette...",
+       subtitle = "A subtitle",
        caption = "And finally, a caption text.") +
   theme_wax(theme = "wax") +
-  scale_color_wax_d()
+  scale_color_wax_d() # or scale_color_wax(discrete = T)
 ```
 
 ![](README_files/unnamed-chunk-7-1.png)<!-- -->
 
-wax_theme uses by default the R fonts. However, it is possible to enter
-the “wax” value in the theme parameter of the wax_theme function to use
-other fonts. In this case, the fonts can be loaded like this:
+``` r
+ggplot(iris, aes(Sepal.Length, Petal.Length, color = ..y..)) +
+  geom_point(size = 3) +
+  labs(title = "... or continuous",
+       subtitle = "A subtitle",
+       caption = "And finally, a caption text.") +
+  theme_wax(theme = "wax") +
+  scale_color_wax_c(name = "Petal Length") # or scale_color_wax(discrete = F)
+```
+
+![](README_files/unnamed-chunk-7-2.png)<!-- -->
+
+### Calculate the cumulative taxonomic richness
 
 ``` r
-sysfonts::font_add_google(name = "Fira Sans", family = "fira-sans")
-sysfonts::font_add_google(name = "Roboto Slab", family = "roboto-slab")
+library(ggplot2)
+library(waxtools)
 
-showtext::showtext_auto()
+result <- naturalist_df %>%
+        calc_rich_sp("name", "date")
+
+ggplot(result, aes(as.Date(date), cumulative_richness)) +
+  geom_area(alpha = .75) +
+  theme_wax()
 ```
+
+![](README_files/unnamed-chunk-8-1.png)<!-- -->
+
+### And more…
