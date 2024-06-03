@@ -39,6 +39,8 @@ clean_colnames <- function(df, remove_space = TRUE, lower_case = TRUE, latin_asc
     col_names <- stringr::str_replace_all(col_names, "[^[:alnum:]]+$", "")
     # replace the characters "." or ".." (sometimes added by R) by "_"
     col_names <- stringr::str_replace_all(col_names, "\\.\\.\\.|\\.\\.|\\.", "_")
+    # replace space by "_" (in case of tibble)
+    col_names <- stringr::str_replace_all(col_names, " ", "_")
   }
 
   colnames(df) <- col_names
